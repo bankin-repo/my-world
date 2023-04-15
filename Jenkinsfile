@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     tools { 
-        maven 'Maven' 
+        maven 'Maven-3.6.1' 
       
     }
 stages { 
@@ -41,36 +41,36 @@ stages {
       archiveArtifacts 'target/*.war'
       }
  }
- stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'sonarqube'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-  //      timeout(time: 10, unit: 'MINUTES') {
- //           waitForQualityGate abortPipeline: true
-  //      }
-    }
-}
+//  stage('Sonarqube') {
+//     environment {
+//         scannerHome = tool 'sonarqube'
+//     }
+//     steps {
+//         withSonarQubeEnv('sonarqube') {
+//             sh "${scannerHome}/bin/sonar-scanner"
+//         }
+//   //      timeout(time: 10, unit: 'MINUTES') {
+//  //           waitForQualityGate abortPipeline: true
+//   //      }
+//     }
+// }
      stage('Artifact upload') {
       steps {
-     nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
+     nexusPublisher nexusInstanceId: '0305', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
-     stage('Deploy War') {
-      steps {
-        sh label: '', script: 'ansible-playbook deploy.yml'
-      }
- }
+//      stage('Deploy War') {
+//       steps {
+//         sh label: '', script: 'ansible-playbook deploy.yml'
+//       }
+//  }
 }
-post {
-        success {
-            mail to:"raknas000@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
-        }
-        failure {
-            mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
-        }
-    }       
+// post {
+//         success {
+//             mail to:"raknas000@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
+//         }
+//         failure {
+//             mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
+//         }
+//     }       
 }
