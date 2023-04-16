@@ -60,18 +60,18 @@ stages {
     //  nexusPublisher nexusInstanceId: '0305', nexusRepositoryId: 'arjun-release-repo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
-     stage("deploy-dev"){
-       steps{
-          sh 'curl -T targetvar/lib/jenkins/workspace/nexus-stage/target/helloworld.war "http://admin:admin@3.20.240.174:8080/manager/text/deploy?path=/myproject&update=true" '
-}
+//      stage("deploy-dev"){
+//        steps{
+//           sh 'curl -T targetvar/lib/jenkins/workspace/nexus-stage/target/helloworld.war "http://admin:admin@3.20.240.174:8080/manager/text/deploy?path=/myproject&update=true" '
+// }
         //   sshagent(['040120']) {
         //   sh """
         //   scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war  
         //   ec2-user@ec2-3-20-240-174:/root/apache-tomcat-8.5.87/webapps
         //    """
         //     }
-          }
-        }
+        //   }
+        // }
 //  stage('Artifact upload') {
 //       steps {
 //         sshagent(['040120']) {
@@ -81,11 +81,11 @@ stages {
 //       }
 //  }
  
-//      stage('Deploy War') {
-//       steps {
-//         sh label: '', script: 'ansible-playbook deploy.yml'
-//       }
-//  }
+     stage('Deploy War') {
+      steps {
+        sh label: '', script: 'ansible-playbook deploy.yml'
+      }
+ }
 }
 // post {
 //         success {
