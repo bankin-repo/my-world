@@ -66,8 +66,6 @@ stages {
           sh """
           scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war  
           ec2-user@ec2-3-20-240-174:/root/apache-tomcat-8.5.87/webapps
-          ssh ec2-user@ec2-3-20-240-174 /opt/tomcat/bin/shutdown.sh
-          ssh ec2-user@ec2-3-20-240-174 /opt/tomcat/bin/startup.sh
            """
             }
           }
