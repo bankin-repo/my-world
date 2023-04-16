@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: 3.20.240.174
   become: true
   tasks:
   - name: Stop Tomcat
