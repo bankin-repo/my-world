@@ -64,7 +64,7 @@ stages {
      stage('build code') {
       steps { 
         sshagent(['tomcat-creds-login'])
-            sh "scp -o StrictHostKeyChecking=no var/lib/jenkins/workspace/nexus-stage/target/helloworld.war ec2-user@3.20.240.174:/opt/apache-tomcat-8.5.87/webapps"
+        sh "scp -o StrictHostKeyChecking=no var/lib/jenkins/workspace/nexus-stage/target/helloworld.war ec2-user@3.20.240.174:/opt/apache-tomcat-8.5.87/webapps"
             
        
       }
