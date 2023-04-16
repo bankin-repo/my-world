@@ -60,6 +60,16 @@ stages {
     //  nexusPublisher nexusInstanceId: '0305', nexusRepositoryId: 'arjun-release-repo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
+ stage('deploy to tomcat') {
+      steps {
+        sshagent(['040120']) {
+    sh 'scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war
+	   ec2-user@3.20.240.174:/root/apache-tomcat-8.5.87/webapps'
+}
+       
+      }
+ }
+ 
 //      stage('Deploy War') {
 //       steps {
 //         sh label: '', script: 'ansible-playbook deploy.yml'
@@ -68,10 +78,10 @@ stages {
 }
 // post {
 //         success {
-//             mail to:"raknas000@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
+//             mail to:"arjunrayewar@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
 //         }
 //         failure {
-//             mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
+//             mail to:"arjunrayewar@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
 //         }
 //     }       
 }
