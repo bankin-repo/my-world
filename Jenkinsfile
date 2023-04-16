@@ -60,14 +60,26 @@ stages {
     //  nexusPublisher nexusInstanceId: '0305', nexusRepositoryId: 'arjun-release-repo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
- stage('deploy to tomcat') {
-      steps {
-        sshagent(['040120']) {
-           sh scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war
-           ec2-user@3.20.240.174:/root/apache-tomcat-8.5.87/webapps 
+     stage("deploy-dev"){
+       steps{
+          sshagent(['040120']) {
+          sh """
+          scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war  
+          ec2-user@3.20.240.174:/root/apache-tomcat-8.5.87/webapps
+          ssh ec2-user@3.20.240.174 /opt/tomcat/bin/shutdown.sh
+          ssh ec2-user@3.20.240.174 /opt/tomcat/bin/startup.sh
+           """
+            }
+          }
+        }
+//  stage('Artifact upload') {
+//       steps {
+//         sshagent(['040120']) {
+//     // some block
+// }
        
-      }
- }
+//       }
+//  }
  
 //      stage('Deploy War') {
 //       steps {
