@@ -62,11 +62,7 @@ stages {
  }
      stage("deploy-dev"){
        steps{
-          sshagent(['tomcat-creds-login']) {
-          sh """
-          scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war  
-          ec2-user@ec2-3-20-240-174:/root/apache-tomcat-8.5.87/webapps
-           """
+          sh 'curl -T targetvar/lib/jenkins/workspace/nexus-stage/target/helloworld.war "http://admin:admin@3.20.240.174:8080/manager/text/deploy?path=/myproject&update=true" '
 }
         //   sshagent(['040120']) {
         //   sh """
