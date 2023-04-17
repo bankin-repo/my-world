@@ -75,7 +75,7 @@ stages {
 // }
         //   sshagent(['040120']) {
         //   sh """
-        //   scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war  
+        //   scp -o StrictHostKeyChecking=no target/var/lib/jenkins/workspace/New-Nexus/target/helloworld.war  
         //   ec2-user@ec2-3-20-240-174:/root/apache-tomcat-8.5.87/webapps
         //    """
         //     }
