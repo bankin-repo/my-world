@@ -56,7 +56,7 @@ stages {
 // }
      stage('Artifact upload') {
       steps {
-        nexusArtifactUploader artifacts: [[artifactId: 'hello-world-servlet-example', classifier: '', file: '/var/lib/jenkins/workspace/nexus-stage/target/helloworld.war', type: 'war']], credentialsId: '0305', groupId: 'arjun-new repo', nexusUrl: '3.144.167.101:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'Jyoshna', version: '$BUILD_NUMBER'
+        nexusArtifactUploader artifacts: [[artifactId: 'hello-world-servlet-example', classifier: '', file: '/var/lib/jenkins/workspace/New-Nexus/target/helloworld.war', type: 'war']], credentialsId: '0305', groupId: 'arjun-new repo', nexusUrl: '3.144.167.101:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'Jyoshna', version: '$BUILD_NUMBER'
     //  nexusPublisher nexusInstanceId: '0305', nexusRepositoryId: 'Sample', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/helloworld.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
       }
  }
